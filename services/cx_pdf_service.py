@@ -24,7 +24,8 @@ def create_pdf_to_excels(dir_path: str):
             raise HTTPException(status_code=404, detail="Directory Path Not Found Exception")
         
         response = []
-        files = os.listdir(dir_path)
+        listdir = os.listdir(dir_path)
+        files = [file_name for file_name in listdir if file_name.lower().endswith('.pdf')]
         for file_index, file in enumerate(files):
             filename = os.path.splitext(file)[0] + os.path.splitext(file)[1]
             pdf_path = os.path.join(os.getcwd(), dir_path, filename)
