@@ -1,16 +1,10 @@
 import os
 
-from fastapi import HTTPException
-
 from services import pdf_service
 
 
 def get_dir_pdf_files(dir_path: str):
     try:
-        if not os.path.isdir(dir_path):
-            raise HTTPException(status_code=404, detail="Directory Path Not Found Exception")
-
-        # 디렉토리 내의 모든 파일 나열
         files = os.listdir(dir_path)
         pdf_files = list(filter(lambda file: os.path.splitext(file)[1].lower().endswith('.pdf'), files))
 
@@ -22,9 +16,6 @@ def get_dir_pdf_files(dir_path: str):
 
 def create_pdf_to_excels(dir_path: str):
     try:
-        if not os.path.isdir(dir_path):
-            raise HTTPException(status_code=404, detail="Directory Path Not Found Exception")
-
         response = []
         listdir = os.listdir(dir_path)
         files = [file_name for file_name in listdir if file_name.lower().endswith('.pdf')]

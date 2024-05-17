@@ -7,10 +7,11 @@ from routes.pdf_router import router as pdf_router
 
 app = FastAPI()
 
+# routers
 app.include_router(pdf_router)
 app.include_router(cx_router)
 
-# Register the exception handlers
+# exception handlers
 app.add_exception_handler(DirectoryNotFoundException, directory_not_found_exception_handler)
 app.add_exception_handler(FileNotFoundException, file_not_found_exception_handler)
 
