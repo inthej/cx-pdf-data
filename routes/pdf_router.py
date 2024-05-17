@@ -1,6 +1,8 @@
-from fastapi import APIRouter
-from controllers import pdf_controller
 from urllib import parse
+
+from fastapi import APIRouter
+
+from controllers import pdf_controller
 
 router = APIRouter(tags=["PDF Services"])
 
@@ -31,6 +33,7 @@ async def pdf_paragraphs(dir_path: str, filename: str):
     decoded_dir_path = parse.unquote(dir_path)
     decoded_filename = parse.unquote(filename)
     return await pdf_controller.get_paragraphs(decoded_dir_path, decoded_filename)
+
 
 @router.get("/pdf/{page_no}/paragraphs", summary="페이지 문단")
 async def pdf_paragraphs(dir_path: str, filename: str, page_no: int):
@@ -72,4 +75,3 @@ async def pdf_outlines(dir_path: str, filename: str):
     decoded_dir_path = parse.unquote(dir_path)
     decoded_filename = parse.unquote(filename)
     return await pdf_controller.get_outlines(decoded_dir_path, decoded_filename)
-

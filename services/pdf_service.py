@@ -1,7 +1,7 @@
-import fitz  # PyMuPDF
 import re
 
-from konlpy.tag import Okt, Hannanum, Kkma
+import fitz  # PyMuPDF
+from konlpy.tag import Kkma
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer
 
