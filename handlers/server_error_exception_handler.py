@@ -1,16 +1,16 @@
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
 
-from exceptions import DirectoryNotFoundException
+from exceptions import ServerErrorException
 
 
-async def directory_not_found_exception_handler(request: Request, exc: DirectoryNotFoundException):
+async def server_error_exception_handler(request: Request, exc: ServerErrorException):
     return JSONResponse(
         status_code=exc.status_code,
         content={
             "code": exc.status_code,
             "success": False,
-            "message": "Directory path not found",
+            "message": "서버 에러",
             "error": exc.detail
         }
     )

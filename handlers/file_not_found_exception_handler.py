@@ -10,7 +10,7 @@ async def file_not_found_exception_handler(request: Request, exc: FileNotFoundEx
         content={
             "code": exc.status_code,
             "success": False,
-            "message": exc.detail,
-            "error": "File not found"
+            "message": "File not found",
+            "error": exc.detail
         }
     )

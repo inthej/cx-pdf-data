@@ -1,9 +1,8 @@
 import os
 
-from fastapi import HTTPException
 from fastapi.responses import FileResponse
 
-from exceptions import DirectoryNotFoundException, FileNotFoundException
+from exceptions import DirectoryNotFoundException, FileNotFoundException, ServerErrorException
 from services import cx_service
 
 
@@ -13,13 +12,13 @@ async def get_dir_pdf_files(dir_path: str):
             raise DirectoryNotFoundException(404, dir_path)
 
         response = cx_service.get_dir_pdf_files(dir_path)
-        return response
+        return {"code": 200, "success": True, "obj": response}
     except DirectoryNotFoundException as e:
         raise e
     except FileNotFoundException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise ServerErrorException(500, detail=str(e))
 
 
 async def create_dir_pdf_to_excels(dir_path: str):
@@ -28,13 +27,13 @@ async def create_dir_pdf_to_excels(dir_path: str):
             raise DirectoryNotFoundException(404, dir_path)
 
         response = cx_service.create_pdf_to_excels(dir_path)
-        return response
+        return {"code": 200, "success": True, "obj": response}
     except DirectoryNotFoundException as e:
         raise e
     except FileNotFoundException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise ServerErrorException(500, detail=str(e))
 
 
 async def download_pdf(dir_path: str, filename: str):
@@ -54,4 +53,4 @@ async def download_pdf(dir_path: str, filename: str):
     except FileNotFoundException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise ServerErrorException(500, detail=str(e))

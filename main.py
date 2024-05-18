@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from exceptions import DirectoryNotFoundException, FileNotFoundException
-from handlers import directory_not_found_exception_handler, file_not_found_exception_handler
+from exceptions import DirectoryNotFoundException, FileNotFoundException, ServerErrorException
+from handlers import directory_not_found_exception_handler, file_not_found_exception_handler, server_error_exception_handler
 from routes.cx_router import router as cx_router
 from routes.pdf_router import router as pdf_router
 
@@ -14,6 +14,7 @@ app.include_router(cx_router)
 # exception handlers
 app.add_exception_handler(DirectoryNotFoundException, directory_not_found_exception_handler)
 app.add_exception_handler(FileNotFoundException, file_not_found_exception_handler)
+app.add_exception_handler(ServerErrorException, server_error_exception_handler)
 
 
 @app.get("/")
